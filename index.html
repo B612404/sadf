@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript" src="/exif.js"></script>
+
+</head>
+<body>
+Upload a local file to read Exif data.
+<br/>
+<input id="file-input" type="file" />
+<br/><br/>
+<p id="show">
+</p>
+
+
+<script>
+
+document.getElementById("file-input").onchange = function(e) {
+    EXIF.getData(e.target.files[0], function() {
+    	all = EXIF.pretty(this);
+    	gps_latitude = EXIF.getTag(this,"GPSLatitude");
+    	gps_longitude = EXIF.getTag(this,"GPSLongitude");
+    	datetime = EXIF.getTag(this,"DateTime");
+
+		document.getElementById("show").innerHTML= 
+				" 纬度：" + gps_latitude + "<br>" +
+				" 经度：" + gps_longitude +
+				" 时间：" + datetime;
+
+    });
+}
+
+</script>
+
+
+
+</body>
+</html>
